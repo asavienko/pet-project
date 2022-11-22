@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  nest-pg:
+    image: postgres:14.6
+    restart: always
+    environment:
+#      TODO asavienko: change credentials
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - nest-pg:/var/lib/postgresql/data
+volumes:
+  nest-pg:
+    driver: local
