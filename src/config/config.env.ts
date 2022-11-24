@@ -55,7 +55,7 @@ export class EnvConfig {
   static getDefaultObject(): EnvConfig {
     const obj = new EnvConfig();
     obj.NODE_ENV = 'development';
-    obj.PORT = 3000;
+    obj.PORT = 3001;
     obj.TYPEORM_TYPE = 'auto';
     obj.TYPEORM_HOST = 'localhost';
     obj.TYPEORM_USERNAME = 'postgres';

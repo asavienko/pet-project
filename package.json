@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "description": "Pet project",
   "private": true,
+  "author": "asavienko@gmail.com",
+  "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

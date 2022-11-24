@@ -13,8 +13,8 @@ export class GqlOptionsService implements GqlOptionsFactory {
     return {
       // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       context: ({ req }) => ({ req }),
-      autoSchemaFile: this.config.env.GQL_SCHEMA_FILE,
-      playground: this.config.env.GQL_PLAYGROUND,
+      autoSchemaFile: this.config.env.GQL_SCHEMA_FILE || './schema.graphql',
+      playground: this.config.env.GQL_PLAYGROUND || true,
       debug: this.config.env.NODE_ENV !== 'production',
     };
   }
