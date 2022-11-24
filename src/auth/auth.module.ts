@@ -12,8 +12,8 @@ import { AuthOptionsService } from './auth-options.service';
 import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+import { GithubOauthStrategy } from './github-oauth.strategy';
 import { JwtStrategy } from './jwt.strategy';
-import { MockStrategy } from './mock.strategy';
 
 @Module({
   imports: [
@@ -37,7 +37,7 @@ import { MockStrategy } from './mock.strategy';
     ConfigModule, // for JwtStrategy
   ],
   controllers: [AuthController],
-  providers: [AuthResolver, AuthService, JwtStrategy, MockStrategy],
+  providers: [AuthResolver, AuthService, JwtStrategy, GithubOauthStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

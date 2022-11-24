@@ -18,13 +18,16 @@ export class User {
   readonly id: number;
 
   @Field()
-  @Index({ unique: true })
-  @Column()
+  @Column({ nullable: true })
+  oauthId: string;
+
+  @Field()
+  @Column({ nullable: true })
   name: string;
 
   @Field()
-  @Index({ unique: true })
-  @Column()
+  @Index()
+  @Column({ nullable: true })
   email: string;
 
   @Exclude({ toPlainOnly: true })

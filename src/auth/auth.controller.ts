@@ -4,6 +4,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Post,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 
@@ -13,10 +14,19 @@ import { AuthService } from './auth.service';
 import { SignInInput } from './dto/sign-in-input.dto';
 import { SignInResult } from './dto/sign-in-result.dto';
 import { SignUpInput } from './dto/sign-up-input.dto';
+import { SsoInput } from './dto/sso-input.dto';
+import { GithubOauthStrategy } from './github-oauth.strategy';
 
 @Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @UseGuards(GithubOauthStrategy)
+  @Post('sso')
+  async sso(@Body() input: SsoInput): Promise<User> {
+    console.log('input', input);
+    return this.authService.sso(input);
+  }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('signup')

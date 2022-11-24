@@ -20,4 +20,9 @@ export class UsersService {
     const user = await this.usersRepo.findOne({ name });
     return user;
   }
+
+  async findOneById(oauthId: string): Promise<User> {
+    const user = await this.usersRepo.findOne({ oauthId });
+    return user;
+  }
 }

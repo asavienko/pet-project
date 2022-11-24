@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { SignInInput } from './dto/sign-in-input.dto';
 import { SignInResult } from './dto/sign-in-result.dto';
 import { SignUpInput } from './dto/sign-up-input.dto';
+import { SsoInput } from './dto/sso-input.dto';
 
 @Resolver((of) => User)
 export class AuthResolver {
@@ -21,6 +22,16 @@ export class AuthResolver {
   @Mutation((returns) => SignInResult)
   async signIn(@Args('input') input: SignInInput): Promise<SignInResult> {
     const result = await this.authService.signIn(input);
+    if (!result.token) {
+      throw new BadRequestException();
+    }
+    return result;
+  }
+
+  @Mutation((returns) => User)
+  async sso(@Args('input') input: SsoInput): Promise<SignInResult> {
+    if (!input.oauthId) throw new BadRequestException();
+    const result = await this.authService.sso(input);
     if (!result.token) {
       throw new BadRequestException();
     }

@@ -20,7 +20,7 @@ describe('Users Controller', () => {
       useValue: usersServiceMockValue,
     };
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PassportModule.register({ defaultStrategy: 'mock' })],
+      imports: [PassportModule.register({ defaultStrategy: 'github' })],
       controllers: [UsersController],
       providers: [UsersServiceMock],
     }).compile();

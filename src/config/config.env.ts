@@ -52,6 +52,15 @@ export class EnvConfig {
   @IsString()
   GQL_SCHEMA_FILE: string;
 
+  @IsString()
+  GITHUB_CLIENT_ID: string;
+
+  @IsString()
+  GITHUB_CLIENT_SECRET: string;
+
+  @IsString()
+  SSO_CALLBACK_URL: string;
+
   static getDefaultObject(): EnvConfig {
     const obj = new EnvConfig();
     obj.NODE_ENV = 'development';
@@ -70,6 +79,11 @@ export class EnvConfig {
     obj.SWAGGER_UI = false;
     obj.GQL_PLAYGROUND = false;
     obj.GQL_SCHEMA_FILE = 'schema.graphql';
+    // TODO : FOR DEMO ONLY REMOVE AFTER THAT
+    obj.GITHUB_CLIENT_ID = '774bd10fa2531d25569c';
+    // TODO : FOR DEMO ONLY REMOVE AFTER THAT
+    obj.GITHUB_CLIENT_SECRET = '991fa641855868644d8fcbb0fd1259261064e888';
+    obj.SSO_CALLBACK_URL = 'http://localhost:5173/v1/oauth/redirect';
     return obj;
   }
 }

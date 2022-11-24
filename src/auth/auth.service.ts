@@ -11,6 +11,8 @@ import { JwtPayload } from './dto/jwt-payload.dto';
 import { SignInInput } from './dto/sign-in-input.dto';
 import { SignInResult } from './dto/sign-in-result.dto';
 import { SignUpInput } from './dto/sign-up-input.dto';
+import { SsoInput } from './dto/sso-input.dto';
+import { generate } from 'generate-password';
 
 @Injectable()
 export class AuthService {
@@ -59,5 +61,30 @@ export class AuthService {
   async validateUser(payload: JwtPayload): Promise<User> {
     const user = await this.usersService.findOneByName(payload.name);
     return user;
+  }
+
+  async sso(input: SsoInput): Promise<SignInResult> {
+    let user = await this.usersService.findOneById(input.oauthId);
+
+    if (!user) {
+      user = new User();
+    }
+    user.oauthId = input.oauthId;
+
+    const randomPassword = generate({
+      length: 10,
+      numbers: true,
+    });
+
+    user.password = AuthService.encryptPassword(randomPassword);
+    await this.usersRepo.save(user);
+    const payload: JwtPayload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+    const token = this.jwtService.sign(payload);
+
+    return { ...user, token };
   }
 }
