@@ -4,7 +4,7 @@
 
 type User {
   id: ID!
-  oauthId: String!
+  avatar: String!
   name: String!
   email: String!
   createdAt: DateTime!
@@ -19,7 +19,7 @@ scalar DateTime
 
 type SignInResult {
   id: ID!
-  oauthId: String!
+  avatar: String!
   name: String!
   email: String!
   createdAt: DateTime!
@@ -51,5 +51,5 @@ input SignInInput {
 }
 
 input SsoInput {
-  oauthId: String!
+  code: String!
 }

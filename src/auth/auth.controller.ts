@@ -24,7 +24,6 @@ export class AuthController {
   @UseGuards(GithubOauthStrategy)
   @Post('sso')
   async sso(@Body() input: SsoInput): Promise<User> {
-    console.log('input', input);
     return this.authService.sso(input);
   }
 

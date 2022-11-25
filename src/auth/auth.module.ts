@@ -14,6 +14,7 @@ import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { GithubOauthStrategy } from './github-oauth.strategy';
 import { JwtStrategy } from './jwt.strategy';
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { JwtStrategy } from './jwt.strategy';
     TypeOrmModule.forFeature([User]),
     UsersModule,
     ConfigModule, // for JwtStrategy
+    HttpModule,
   ],
   controllers: [AuthController],
   providers: [AuthResolver, AuthService, JwtStrategy, GithubOauthStrategy],

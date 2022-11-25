@@ -21,8 +21,13 @@ export class UsersService {
     return user;
   }
 
-  async findOneById(oauthId: string): Promise<User> {
-    const user = await this.usersRepo.findOne({ oauthId });
+  async findOneById(id: string | number): Promise<User> {
+    const user = await this.usersRepo.findOne(id);
+    return user;
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.usersRepo.findOne({ email });
     return user;
   }
 }

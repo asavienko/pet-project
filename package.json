@@ -41,7 +41,7 @@
   "prettier": "@twihike/prettier-config",
   "dependencies": {
     "@godaddy/terminus": "4.9.0",
-    "@nestjs/axios": "0.0.1",
+    "@nestjs/axios": "^1.0.0",
     "@nestjs/common": "8.0.6",
     "@nestjs/core": "8.0.6",
     "@nestjs/graphql": "9.0.4",

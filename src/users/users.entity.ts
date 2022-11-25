@@ -19,15 +19,15 @@ export class User {
 
   @Field()
   @Column({ nullable: true })
-  oauthId: string;
+  avatar: string;
 
   @Field()
   @Column({ nullable: true })
   name: string;
 
   @Field()
-  @Index()
-  @Column({ nullable: true })
+  @Index({ unique: true })
+  @Column()
   email: string;
 
   @Exclude({ toPlainOnly: true })
