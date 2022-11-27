@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -14,7 +15,7 @@ import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { GithubOauthStrategy } from './github-oauth.strategy';
 import { JwtStrategy } from './jwt.strategy';
-import {HttpModule} from "@nestjs/axios";
+import { PostsModule } from '../posts/posts.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import {HttpModule} from "@nestjs/axios";
     }),
     TypeOrmModule.forFeature([User]),
     UsersModule,
+    PostsModule,
     ConfigModule, // for JwtStrategy
     HttpModule,
   ],

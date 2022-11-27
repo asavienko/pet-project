@@ -1,38 +1,31 @@
 import { HttpService } from '@nestjs/axios';
-import {
-  ForbiddenException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { generate } from 'generate-password';
-import { catchError, firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { Repository } from 'typeorm';
 
 import { ConfigService } from '../config/config.service';
 import {
-  APLICATION_JSON_TYPE,
   AUTHORIZATION_HEADER,
   GITHUB_CODE_EXCHANGE_URL,
   GITHUB_RESPONSE_ERROR,
   GITHUB_RESPONSE_ERROR_DESCRIPTION,
   GITHUB_RESPONSE_ERROR_URI,
   GITHUB_USER_API,
-  HEADER_ACCEPT,
 } from '../constants';
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
 
+import { GithubResponseDto } from './dto/github-response.dto';
+import { GithubUserResponseDto } from './dto/github-user-response.dto';
 import { JwtPayload } from './dto/jwt-payload.dto';
 import { SignInInput } from './dto/sign-in-input.dto';
 import { SignInResult } from './dto/sign-in-result.dto';
 import { SignUpInput } from './dto/sign-up-input.dto';
 import { SsoInput } from './dto/sso-input.dto';
-import { GithubResponseDto } from './dto/github-response.dto';
-import { GithubUserResponseDto } from './dto/github-user-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -169,7 +162,6 @@ export class AuthService {
       email: user.email,
     };
     const token = this.jwtService.sign(payload);
-
     return { ...user, token };
   }
 }

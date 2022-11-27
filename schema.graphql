@@ -2,11 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Post {
   id: ID!
-  avatar: String!
-  name: String!
-  email: String!
+  post: String!
+  user: User!
   createdAt: DateTime!
   updatedAt: DateTime!
   version: Int!
@@ -17,11 +16,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: ID!
+  avatar: String!
+  name: String!
+  email: String!
+  posts: Post!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  version: Int!
+}
+
 type SignInResult {
   id: ID!
   avatar: String!
   name: String!
   email: String!
+  posts: Post!
   createdAt: DateTime!
   updatedAt: DateTime!
   version: Int!
@@ -31,12 +42,15 @@ type SignInResult {
 type Query {
   users: [User!]!
   user(name: String!): User!
+  posts: [Post!]!
+  myPosts: [Post!]!
 }
 
 type Mutation {
   signUp(input: SignUpInput!): User!
   signIn(input: SignInInput!): SignInResult!
-  sso(input: SsoInput!): User!
+  sso(input: SsoInput!): SignInResult!
+  publishPosts(post: String!): Post!
 }
 
 input SignUpInput {

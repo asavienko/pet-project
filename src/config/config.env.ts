@@ -83,7 +83,7 @@ export class EnvConfig {
     obj.GITHUB_CLIENT_ID = '774bd10fa2531d25569c';
     // TODO : FOR DEMO ONLY REMOVE AFTER THAT
     obj.GITHUB_CLIENT_SECRET = '991fa641855868644d8fcbb0fd1259261064e888';
-    obj.GITHUB_CALLBACK_URL = 'http://localhost:5173/v1/oauth/redirect';
+    obj.GITHUB_CALLBACK_URL = 'http://127.0.0.1:5173/v1/oauth/redirect';
     return obj;
   }
 }

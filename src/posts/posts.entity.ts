@@ -1,46 +1,32 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
-import { Post } from '../posts/posts.entity';
+import { User } from '../users/users.entity';
 
 @ObjectType()
 @Entity()
-export class User {
+export class Post {
   @Field((type) => ID)
   @PrimaryGeneratedColumn()
   readonly id: number;
 
   @Field()
-  @Column({ nullable: true })
-  avatar: string;
-
-  @Field()
-  @Column({ nullable: true })
-  name: string;
-
-  @Field()
-  @Index({ unique: true })
   @Column()
-  email: string;
+  post: string;
 
-  @Exclude({ toPlainOnly: true })
-  @Column()
-  password: string;
-
-  @Field((type) => Post)
-  @OneToMany('Post', 'user')
-  posts: Post[];
+  @Field((type) => User)
+  @ManyToOne('User', 'posts')
+  user: User;
 
   @Field()
   @CreateDateColumn()
