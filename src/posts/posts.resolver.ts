@@ -10,10 +10,10 @@ import { PostsService } from './posts.service';
 export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
-  @UseGuards(GqlAuthGuard)
   @Query((returns) => [Post])
   async posts(): Promise<Post[]> {
     const posts = await this.postsService.findAll();
+
     return posts;
   }
 

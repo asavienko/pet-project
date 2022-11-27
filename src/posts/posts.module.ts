@@ -9,6 +9,7 @@ import { PostsController } from './posts.controller';
 import { Post } from './posts.entity';
 import { PostsResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
+import { User } from '../users/users.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { PostsService } from './posts.service';
       imports: [ConfigModule],
       useClass: AuthOptionsService,
     }),
-    TypeOrmModule.forFeature([Post]),
+    TypeOrmModule.forFeature([Post, User]),
   ],
   controllers: [PostsController],
   providers: [PostsResolver, PostsService],
