@@ -40,9 +40,10 @@ type SignInResult {
 }
 
 type Query {
+  exchangeToken: SignInResult!
   users: [User!]!
   user(name: String!): User!
-  posts: [Post!]!
+  posts(offset: Int!, limit: Int!): [Post!]!
   myPosts: [Post!]!
 }
 

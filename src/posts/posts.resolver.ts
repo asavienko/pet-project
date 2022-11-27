@@ -1,5 +1,5 @@
-import { Body, ExecutionContext, UseGuards } from '@nestjs/common';
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 
@@ -11,16 +11,19 @@ export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
   @Query((returns) => [Post])
-  async posts(): Promise<Post[]> {
-    const posts = await this.postsService.findAll();
+  async posts(
+    @Args('limit', { type: () => Int }) limit: number,
+    @Args('offset', { type: () => Int }) offset: number,
+  ): Promise<Post[]> {
+    const posts = await this.postsService.findAll({ limit, offset });
 
     return posts;
   }
 
   @UseGuards(GqlAuthGuard)
   @Query((returns) => [Post])
-  async myPosts(@Body('userId') userId: number): Promise<Post[]> {
-    const posts = await this.postsService.findByUserId(userId);
+  async myPosts(@Context('userId') { req }: any): Promise<Post[]> {
+    const posts = await this.postsService.findByUserId(req.user.id);
     return posts;
   }
 

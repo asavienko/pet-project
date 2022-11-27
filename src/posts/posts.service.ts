@@ -13,8 +13,22 @@ export class PostsService {
     private readonly postsRepo: Repository<Post>,
   ) {}
 
-  async findAll(): Promise<Post[]> {
-    const posts = await this.postsRepo.find({ relations: ['user'] });
+  /* TODO Move to constants */
+  async findAll({
+    limit = 10,
+    offset = 0,
+  }: {
+    limit?: number;
+    offset?: number;
+  }): Promise<Post[]> {
+    const posts = await this.postsRepo.find({
+      relations: ['user'],
+      order: {
+        createdAt: 'DESC',
+      },
+      skip: offset,
+      take: limit,
+    });
     return posts;
   }
 

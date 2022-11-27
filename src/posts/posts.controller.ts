@@ -21,7 +21,7 @@ export class PostsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async findAll(): Promise<Post[]> {
-    const users = await this.postsService.findAll();
+    const users = await this.postsService.findAll({});
     return users;
   }
 

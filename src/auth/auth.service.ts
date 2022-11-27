@@ -46,6 +46,17 @@ export class AuthService {
     return result;
   }
 
+  public generatePayload = (user: User) => {
+    const payload: JwtPayload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+    const token = this.jwtService.sign(payload);
+
+    return token;
+  };
+
   private static encryptPassword(password): string {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
@@ -63,18 +74,13 @@ export class AuthService {
       return new SignInResult();
     }
 
-    const payload: JwtPayload = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    };
-    const token = this.jwtService.sign(payload);
+    const token = this.generatePayload(user);
 
     return { ...user, token };
   }
 
   async validateUser(payload: JwtPayload): Promise<User> {
-    const user = await this.usersService.findOneByName(payload.name);
+    const user = await this.usersService.findOneByEmail(payload.email);
     return user;
   }
 
@@ -156,12 +162,7 @@ export class AuthService {
       await this.usersRepo.save(user);
     }
 
-    const payload: JwtPayload = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    };
-    const token = this.jwtService.sign(payload);
+    const token = this.generatePayload(user);
     return { ...user, token };
   }
 }
