@@ -1,9 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { User } from '../users/users.entity';
 
+import { RemovePostResponse } from './dto/remove-post-response.dto';
+import { RemovePostInput } from './dto/remove-post.dto';
 import { Post } from './posts.entity';
 
 @Injectable()
@@ -47,9 +53,29 @@ export class PostsService {
     newPost.post = post;
     newPost.user = user;
 
-    console.log(newPost);
-
     const result = await this.postsRepo.save(newPost);
     return result;
+  }
+
+  async remove(
+    input: RemovePostInput,
+    user: User,
+  ): Promise<RemovePostResponse> {
+    const post = await this.postsRepo.findOne(input.id, {
+      relations: ['user'],
+    });
+
+    if (!post) {
+      throw new NotFoundException();
+    }
+
+    if (!user.id || post.user.id !== user.id) {
+      throw new UnauthorizedException();
+    }
+    const data = await this.postsRepo.remove(post);
+
+    console.log(data);
+
+    return { successful: !data.id };
   }
 }

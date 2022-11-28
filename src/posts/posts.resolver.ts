@@ -3,6 +3,8 @@ import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 
+import { RemovePostResponse } from './dto/remove-post-response.dto';
+import { RemovePostInput } from './dto/remove-post.dto';
 import { Post } from './posts.entity';
 import { PostsService } from './posts.service';
 
@@ -36,5 +38,17 @@ export class PostsResolver {
   ): Promise<Post> {
     const createdPost = await this.postsService.create(post, ctx?.req?.user);
     return createdPost;
+  }
+
+  // TODO add type for ctx
+  @UseGuards(GqlAuthGuard)
+  @Mutation((returns) => RemovePostResponse)
+  async removePost(
+    @Args('id') id: RemovePostInput,
+    @Context() ctx: any,
+  ): Promise<RemovePostResponse> {
+    const result = await this.postsService.remove(id, ctx?.req?.user);
+
+    return result;
   }
 }

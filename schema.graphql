@@ -39,6 +39,10 @@ type SignInResult {
   token: String!
 }
 
+type RemovePostResponse {
+  successful: Boolean!
+}
+
 type Query {
   exchangeToken: SignInResult!
   users: [User!]!
@@ -52,6 +56,7 @@ type Mutation {
   signIn(input: SignInInput!): SignInResult!
   sso(input: SsoInput!): SignInResult!
   publishPosts(post: String!): Post!
+  removePost(id: RemovePostInput!): RemovePostResponse!
 }
 
 input SignUpInput {
@@ -67,4 +72,8 @@ input SignInInput {
 
 input SsoInput {
   code: String!
+}
+
+input RemovePostInput {
+  id: ID!
 }
