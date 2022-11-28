@@ -25,6 +25,7 @@ const options: TypeOrmModuleOptions = {
   username: env.TYPEORM_USERNAME,
   password: env.TYPEORM_PASSWORD,
   database: env.TYPEORM_DATABASE,
+  url: env.DATABASE_URL,
   entities: [`${__dirname}/../**/*.entity.{ts,js}`],
   migrations: [`${__dirname}/../migrations/*.{ts,js}`],
   namingStrategy: new TypeOrmNamingStrategy(),
