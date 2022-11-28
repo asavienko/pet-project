@@ -77,7 +77,7 @@ export class EnvConfig {
     obj.TYPEORM_LOGGING = false;
     obj.DATABASE_URL = '';
     obj.HEALTH_CHECK_DATABASE_TIMEOUT_MS = 3000;
-    obj.JWT_SECRET = '';
+    obj.JWT_SECRET = 'super_secret_string';
     obj.JWT_EXPIRES_IN = 86_400;
     obj.SKIP_AUTH = false;
     obj.SWAGGER_UI = false;
