@@ -30,6 +30,9 @@ const options: TypeOrmModuleOptions = {
   migrations: [`${__dirname}/../migrations/*.{ts,js}`],
   namingStrategy: new TypeOrmNamingStrategy(),
   logging: env.TYPEORM_LOGGING,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   cli: {
     migrationsDir: 'src/migrations',
   },

@@ -75,7 +75,7 @@ export class EnvConfig {
     obj.TYPEORM_DATABASE = 'postgres';
     obj.TYPEORM_PORT = 5432;
     obj.TYPEORM_LOGGING = false;
-    obj.DATABASE_URL = '127.0.0.1:5432';
+    obj.DATABASE_URL = '';
     obj.HEALTH_CHECK_DATABASE_TIMEOUT_MS = 3000;
     obj.JWT_SECRET = '';
     obj.JWT_EXPIRES_IN = 86_400;
